@@ -1,5 +1,6 @@
 package com.contentfarm;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -14,6 +15,13 @@ public class ContentFarmLocaleDateTimeUtils {
 
     public static LocalDateTime ofNow() {
         return LocalDateTime.now();
+    }
+
+    public static LocalDateTime parseFrom_yyyy_MM_dd(String dateTimeString) {
+        if (ContentFarmStringUtils.isBlank(dateTimeString)) {
+            return null;
+        }
+        return LocalDate.parse(dateTimeString, DATE_TIME_yyyy_MM_dd_FORMATTER).atStartOfDay();
     }
 
     private static String formatToString(LocalDateTime localDateTime, DateTimeFormatter dateTimeFormatter) {

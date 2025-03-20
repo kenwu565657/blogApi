@@ -30,4 +30,15 @@ class ContentFarmLocaleDateTimeUtilsTest {
         formattedString = ContentFarmLocaleDateTimeUtils.formatTo_yyyy_MM_dd(null);
         assertNull(formattedString);
     }
+
+    @Test
+    void parseFrom_yyyy_MM_dd() {
+        String date = "2025-12-01";
+        LocalDateTime dateTime = ContentFarmLocaleDateTimeUtils.parseFrom_yyyy_MM_dd(date);
+        Assertions.assertEquals(LocalDateTime.of(2025, 12, 1, 0, 0, 0), dateTime);
+
+        String blankDate = "";
+        Assertions.assertNull(ContentFarmLocaleDateTimeUtils.parseFrom_yyyy_MM_dd(blankDate));
+        Assertions.assertNull(ContentFarmLocaleDateTimeUtils.parseFrom_yyyy_MM_dd(null));
+    }
 }
