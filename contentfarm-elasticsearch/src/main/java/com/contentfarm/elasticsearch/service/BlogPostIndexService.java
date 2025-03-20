@@ -1,0 +1,78 @@
+package com.contentfarm.elasticsearch.service;
+
+import com.contentfarm.ContentFarmStringUtils;
+import com.contentfarm.aggregateroot.blogpost.BlogPostDomainModel;
+import com.contentfarm.elasticsearch.document.BlogPostDocument;
+import com.contentfarm.elasticsearch.exception.DocumentIndexException;
+import com.contentfarm.elasticsearch.mapper.BlogPostSearchMapper;
+import com.contentfarm.elasticsearch.repository.IBlogPostElasticsearchRepository;
+import com.contentfarm.outputport.blogpost.search.IBlogPostIndexService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@Service
+@RequiredArgsConstructor
+public class BlogPostIndexService implements IBlogPostIndexService {
+    private final IBlogPostElasticsearchRepository blogPostElasticsearchRepository;
+    private final BlogPostSearchMapper blogPostSearchMapper;
+
+    @Override
+    public void indexBlogPost(BlogPostDomainModel blogPostDomainModel) {
+        if (null == blogPostDomainModel) {
+            throw DocumentIndexException.ofNullDocument();
+        }
+        var blogPostDocument = blogPostSearchMapper.toBlogPostDocument(blogPostDomainModel);
+        List<String> missingFieldList = findMissingFieldList(blogPostDocument);
+        if (!missingFieldList.isEmpty()) {
+            throw DocumentIndexException.ofMissingField(missingFieldList);
+        }
+        if (null == blogPostDocument.getTagList()) {
+            blogPostDocument.setTagList(List.of());
+        }
+        try {
+            blogPostElasticsearchRepository.save(blogPostDocument);
+        } catch (Exception e) {
+            throw DocumentIndexException.ofUnExpectedException(e);
+        }
+    }
+
+    @Override
+    public void deleteBlogPostIndex(String id) {
+        blogPostElasticsearchRepository.deleteById(id);
+    }
+
+    private List<String> findMissingFieldList(BlogPostDocument blogPostDocument) {
+        Map<String, String> fieldNamingMap = Map.of(
+                BlogPostDocument.Fields.id, "Id",
+                BlogPostDocument.Fields.title, "Title",
+                BlogPostDocument.Fields.summary, "Summary",
+                BlogPostDocument.Fields.authorName, "Author Name",
+                BlogPostDocument.Fields.postDate, "Post Date",
+                BlogPostDocument.Fields.imageUrl, "Image Url"
+        );
+        List<String> missingFields = new ArrayList<>();
+        if (ContentFarmStringUtils.isBlank(blogPostDocument.getId())) {
+            missingFields.add(fieldNamingMap.get(BlogPostDocument.Fields.id));
+        }
+        if (ContentFarmStringUtils.isBlank(blogPostDocument.getTitle())) {
+            missingFields.add(fieldNamingMap.get(BlogPostDocument.Fields.title));
+        }
+        if (ContentFarmStringUtils.isBlank(blogPostDocument.getSummary())) {
+            missingFields.add(fieldNamingMap.get(BlogPostDocument.Fields.summary));
+        }
+        if (ContentFarmStringUtils.isBlank(blogPostDocument.getAuthorName())) {
+            missingFields.add(fieldNamingMap.get(BlogPostDocument.Fields.authorName));
+        }
+        if (ContentFarmStringUtils.isBlank(blogPostDocument.getPostDate())) {
+            missingFields.add(fieldNamingMap.get(BlogPostDocument.Fields.postDate));
+        }
+        if (ContentFarmStringUtils.isBlank(blogPostDocument.getImageUrl())) {
+            missingFields.add(fieldNamingMap.get(BlogPostDocument.Fields.imageUrl));
+        }
+        return missingFields;
+    }
+}
