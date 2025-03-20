@@ -1,0 +1,31 @@
+server:
+  servlet:
+    context-path: /api
+  port: ${CONTENTFARM_PORT}
+
+spring:
+  application:
+    name: blogpost-service
+  datasource:
+    url: ${POSTGRESQL_JDBC_URL}
+    username: ${POSTGRESQL_USERNAME}
+    password: ${POSTGRESQL_PASSWORD}
+  sql:
+    init:
+      mode: always
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${CONTENTFARM_AUTH_SERVER_URL}
+
+file:
+  operation:
+    aws:
+      s3:
+        accessKey: ${AWS_S3_ACCESS_KEY}
+        secretKey: ${AWS_S3_SECRET_KEY}
+        region: ${AWS_S3_REGION}
+
+elasticsearch:
+  url: ${ELASTICSEARCH_URL}

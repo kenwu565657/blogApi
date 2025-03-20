@@ -1,0 +1,15 @@
+server:
+  servlet:
+    context-path: /api
+  port: 80
+spring:
+  # show sql in log
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        hbm2ddl.auto: none
+        format_sql: true
+        use_sql_comments: true
+  profiles:
+    active: dev

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.contentfarm</groupId>
+        <artifactId>api</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>contentfarm-application</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.contentfarm</groupId>
+            <artifactId>contentfarm-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.contentfarm</groupId>
+            <artifactId>contentfarm-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.contentfarm</groupId>
+            <artifactId>contentfarm-relational-database</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.contentfarm</groupId>
+            <artifactId>contentfarm-elasticsearch</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.contentfarm</groupId>
+            <artifactId>contentfarm-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.contentfarm</groupId>
+            <artifactId>contentfarm-file-operation</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <image>
+                        <name>contentfarm-${project.parent.artifactId}:${project.parent.version}</name>
+                    </image>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build-image</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
