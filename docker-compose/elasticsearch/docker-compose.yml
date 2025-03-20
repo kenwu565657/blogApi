@@ -1,0 +1,15 @@
+services:
+  elasticsearch:
+    image: elasticsearch:${ELASTICSEARCH_VERSION}
+    container_name: ${PROJECT_NAME}-elasticsearch
+    restart: always
+    environment:
+      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      discovery.type: single-node
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+
+volumes:
+  elasticsearch-data:
