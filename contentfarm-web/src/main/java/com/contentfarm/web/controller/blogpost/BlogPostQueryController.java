@@ -39,6 +39,11 @@ public class BlogPostQueryController {
         return blogPostWebDomainService.findTagList();
     }
 
+    @GetMapping(value = "/search/{blogPostId}", produces = "application/json")
+    public BlogPostSearchResultDto searchBlogPostById(@PathVariable String blogPostId) {
+        return blogPostWebDomainService.searchBlogPostById(blogPostId);
+    }
+
     @GetMapping(value = "/search", produces = "application/json", params = {"keyword"})
     public SearchResult<BlogPostSearchResultDto> searchBlogPostByKeywordAndPageNumberAndPageSize(@RequestParam("keyword") String keyword,
                                                                                                  @RequestParam(value = "pageNumber", required = false) Integer pageNumber,

@@ -98,6 +98,11 @@ public class BlogPostDomainService implements IBlogPostWebDomainService, IAdminB
     }
 
     @Override
+    public BlogPostSearchResultDto searchBlogPostById(String id) {
+        return blogPostSearchService.getBlogPostById(id);
+    }
+
+    @Override
     public SearchResult<BlogPostSearchResultDto> searchBlogPostByKeywordAndPageNumberAndPageSize(String keyword, Integer pageNumber, Integer pageSize) {
         return blogPostSearchService.searchBlogPostByKeywordAndPageNumberAndPageSize(keyword, pageNumber, pageSize);
     }
