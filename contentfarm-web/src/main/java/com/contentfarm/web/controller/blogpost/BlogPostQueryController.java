@@ -52,7 +52,7 @@ public class BlogPostQueryController {
     }
 
     @GetMapping(value = "/search", produces = "application/json", params = {"tagList"})
-    public SearchResult<BlogPostSearchResultDto> searchBlogPostByTagList(List<String> tagList) {
+    public SearchResult<BlogPostSearchResultDto> searchBlogPostByTagList(@RequestParam List<String> tagList) {
         if (tagList == null || tagList.isEmpty()) {
             return blogPostWebDomainService.searchAllBlogPost();
         }
