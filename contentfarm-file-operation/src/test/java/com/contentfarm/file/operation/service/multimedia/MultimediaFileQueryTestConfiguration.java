@@ -1,10 +1,9 @@
-package com.contentfarm.persistence.multimedia;
+package com.contentfarm.file.operation.service.multimedia;
 
 import com.contentfarm.file.operation.springboot.starter.exception.FileOperationException;
 import com.contentfarm.file.operation.springboot.starter.pojo.AsyncOperationResult;
 import com.contentfarm.file.operation.springboot.starter.service.FileStorageService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
@@ -15,8 +14,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.CompletableFuture;
 
-@SpringBootApplication(scanBasePackages = "com.contentfarm.persistence.multimedia", exclude = DataSourceAutoConfiguration.class)
-public class MultimediaServiceTestConfiguration {
+@SpringBootApplication(scanBasePackages = "com.contentfarm.file.operation.service.multimedia", exclude = DataSourceAutoConfiguration.class)
+public class MultimediaFileQueryTestConfiguration {
     @Bean
     public FileStorageService fileStorageService() {
         return new FileStorageServiceSpy();
