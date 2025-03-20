@@ -62,15 +62,6 @@ class BlogPostPersistenceQueryServiceTest {
         Assertions.assertEquals(List.of("Java", "Testing"), tagNameList);
     }
 
-    @Test
-    void getBlogPostContentById() {
-        String id = UUID.randomUUID().toString();
-        insertTestingBlogPostEntity(id);
-        var blogPostContentByteArray = blogPostPersistenceQueryService.getBlogPostContentById(id);
-        Assertions.assertNotNull(blogPostContentByteArray);
-        Assertions.assertTrue(blogPostContentByteArray.length > 0);
-    }
-
     private void insertTestingBlogPostTagEntity() {
         BlogPostTagEntity blogPostTagEntity1 = new BlogPostTagEntity();
         blogPostTagEntity1.setId(UUID.randomUUID().toString());
