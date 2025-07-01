@@ -1,10 +1,20 @@
 package com.contentfarm.domainservice.blogpost;
 
+import com.contentfarm.domainservice.mock.blogpost.persistence.ShortBlogPostIndexServiceStub;
+import com.contentfarm.domainservice.mock.blogpost.persistence.ShortBlogPostPersistenceCommandServiceStub;
+import com.contentfarm.domainservice.mock.blogpost.persistence.ShortBlogPostPersistenceQueryServiceStub;
+import com.contentfarm.domainservice.mock.blogpost.persistence.ShortBlogPostSearchServiceStub;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ShortBlogPostDomainServiceTest {
+    private final ShortBlogPostDomainService shortBlogPostDomainService = new ShortBlogPostDomainService(
+        new ShortBlogPostPersistenceCommandServiceStub(),
+        new ShortBlogPostPersistenceQueryServiceStub(),
+        new ShortBlogPostIndexServiceStub(),
+        new ShortBlogPostSearchServiceStub()
+    );
 
     @Test
     void indexShortBlogPost() {
