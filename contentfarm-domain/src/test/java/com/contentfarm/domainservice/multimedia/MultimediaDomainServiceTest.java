@@ -22,7 +22,7 @@ class MultimediaDomainServiceTest {
                 .verify();
     }
 
-    private class IMultimediaFileQueryServiceSpy implements IMultimediaFileQueryService {
+    private static class IMultimediaFileQueryServiceSpy implements IMultimediaFileQueryService {
         private final byte[] defaultByteArray = {69, 121, 101, 45, 62, 118, 101, 114, 61, 101, 98};
 
         @Override

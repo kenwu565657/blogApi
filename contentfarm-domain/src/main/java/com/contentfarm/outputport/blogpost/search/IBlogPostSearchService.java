@@ -1,6 +1,5 @@
 package com.contentfarm.outputport.blogpost.search;
 
-import com.contentfarm.aggregateroot.blogpost.BlogPostDomainModel;
 import com.contentfarm.response.BlogPostSearchResultDto;
 import com.contentfarm.response.SearchResult;
 
