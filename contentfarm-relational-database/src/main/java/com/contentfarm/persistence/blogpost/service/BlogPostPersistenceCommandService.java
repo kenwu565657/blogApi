@@ -1,5 +1,6 @@
 package com.contentfarm.persistence.blogpost.service;
 
+import com.contentfarm.ContentFarmIdUtils;
 import com.contentfarm.ContentFarmLocaleDateTimeUtils;
 import com.contentfarm.aggregateroot.blogpost.BlogPostDomainModel;
 import com.contentfarm.persistence.blogpost.dao.IBlogPostDao;
@@ -25,7 +26,7 @@ public class BlogPostPersistenceCommandService implements IBlogPostPersistenceCo
     public BlogPostDomainModel upsertBlogPost(BlogPostDomainModel blogPostDomainModel) {
         var blogPostEntity = blogPostEntityMapper.mapToBlogPostEntity(blogPostDomainModel);
         if (null == blogPostEntity.getId()) {
-            String uuid = UUID.randomUUID().toString();
+            String uuid = ContentFarmIdUtils.ofRandom();
             blogPostEntity.setId(uuid);
             blogPostDomainModel.setId(uuid);
         } else {
